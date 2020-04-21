@@ -44,8 +44,12 @@ Class User implements Crud{
         return $res;
     }
 
-    public function readAll(){
-        return null;
+    public static function readAll(){
+        $sql = "SELECT * FROM `user`";
+        $DBConnector = new DBConnector;
+        $res = mysqli_query($DBConnector->conn, $sql);
+        return $res;
+
     }
     public function readUnique(){
         return null;

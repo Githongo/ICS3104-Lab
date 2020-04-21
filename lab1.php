@@ -42,11 +42,11 @@ if(isset($_POST['btn-save'])){
                     
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-7">
+                <div class="col-lg-7 m-4">
                     <div class="card shadow-lg border-0 rounded-lg mt-5">
                         <div class="card-header"><h3 class="text-center font-weight-light my-4">Sample Form</h3></div>
                         <div class="card-body">
-                            <form  method="post">
+                            <form  method="post" action="#readAllTable">
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group"><label class="small mb-1" for="inputFirstName">First Name</label><input class="form-control py-4" id="inputFirstName" name="first_name" type="text" placeholder="Enter First name" required="true" /></div>
@@ -73,8 +73,49 @@ if(isset($_POST['btn-save'])){
 
                     </div>
                 </div>
+
+
+                <div class="table-responsive m-4" id="readAllTable">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        include_once "DBConnector.php";
+                        include_once "user.php";
+                        $res = user::readAll();
+                        
+                        while ($row = mysqli_fetch_array($res)){
+                            echo "
+                                <tr>
+                                    <td>".$row['id']."</td>
+                                    <td>".$row['first_name']."</td>
+                                    <td>".$row['last_name']."</td>
+                                    <td>".$row['user_city']."</td>
+                                    <td>".$row['user_email']."</td>
+                                    <td>".$row['user_phone']."</td>
+                                      
+                                </tr>
+                                ";
+                        
+                        
+                        }
+                    ?>
+                    </tbody>
+                </table>
+                </div>
             </div>
         </div>
+
+        
 
     </body>
 </html>
