@@ -4,6 +4,7 @@
 --
 -- Host: 127.0.0.1
 -- Generation Time: Apr 21, 2020 at 07:03 PM
+
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -48,6 +49,7 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `user_email`, `user_phone`,
 (10, 'Dutch', 'Linde', 'dutchv@rdr2.com', '0745858565', 'St. Denis'),
 (11, 'Tilly', 'Jackson', 'tjackson@rdr2.game', '0745458545', 'Rhodes');
 
+
 --
 -- Indexes for dumped tables
 --
@@ -66,7 +68,9 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
+
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
