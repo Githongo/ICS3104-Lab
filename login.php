@@ -74,6 +74,9 @@
                                 <div class="form-group mt-4 mb-0"><button class="btn btn-info btn-block my-4" type="submit" name = "btn_login" value = "btn_login" >Sign in</button></div>
                             </form>
                         </div>
+                        <div class="card-footer">
+                            <p class="text-center" >Don't have an account? <a href="lab1.php" >Sign up </a></p>
+                        </div>
 
                     </div>
                 </div>
