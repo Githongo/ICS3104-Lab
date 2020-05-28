@@ -1,15 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-
--- Generation Time: Apr 28, 2020 at 09:16 PM
-
--- Server version: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time: May 28, 2020 at 03:40 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -36,18 +35,17 @@ CREATE TABLE `user` (
   `user_phone` varchar(10) NOT NULL,
   `user_city` varchar(32) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `profile_picture` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `user_email`, `user_phone`, `user_city`, `username`, `password`) VALUES
-(59, 'Jane', 'Doe', 'jdoe@anonymous.com', '0123456789', 'Riyadh', 'Jane', '$2y$10$XVjmCKihWO9fAu48q1v5WOV1voD/w52sC42reRLpoi6liiFz5c34y'),
-(60, 'Sarah', 'Enour', 'senour@teee.com', '0745454554', 'San Hose', 'Sarah', '$2y$10$W1Vx/L9C8mIqaVLMD0.orOiPNBipGXFVldtQlArhbs3ahAd/wS8rm'),
-(61, 'John', 'Doe', 'johndoe@anonym.ous', '0700000111', 'Krypton', 'John', '$2y$10$fL/QmzEyYoJK2xlT856LbewUnzTYS4hEU3OsrUHMvzZKCajW5yH5C');
-
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `user_email`, `user_phone`, `user_city`, `username`, `password`, `profile_picture`) VALUES
+(64, 'John', 'Doe', 'johndoe@anonymo.us', '0710000000', 'St. Denis', 'JohntheDoe', '$2y$10$1r.RljIZ559pvSHrpoRws.RnUObgoUTJG3n311z0o77HisKB9LCwa', 'default_profile.jpg'),
+(66, 'Jane', 'Doe', 'janedoe@anonymo.us', '0745454545', 'Birmingham', 'janetheDoe55', '$2y$10$Jy5slTW.k3vo4HnBXzysFuacpxChoCE3j..5EDNl0dICYM953xKae', 'user.png');
 
 --
 -- Indexes for dumped tables
@@ -67,8 +65,8 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
