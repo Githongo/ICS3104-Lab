@@ -26,13 +26,14 @@
             <p>This is a private page</p>
             <p>We want to protect it....</p><br><br>
 
-            <p><a href="logout.php">Logout</a></p><br><br>
+            <p><a href="logout.php">Want to Logout?</a></p><br><br>
         <p>Lab one task:</p>
         <div class="table-responsive m-4" id="readAllTable">
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Username</th>
                         <th scope="col">First</th>
                         <th scope="col">Last</th>
                         <th scope="col">City</th>
@@ -50,6 +51,7 @@
                             echo "
                                 <tr>
                                     <td>".$row['id']."</td>
+                                    <td>".$row['username']."</td>
                                     <td>".$row['first_name']."</td>
                                     <td>".$row['last_name']."</td>
                                     <td>".$row['user_city']."</td>

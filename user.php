@@ -15,10 +15,13 @@ Class User implements Crud, Authenticator{
     private $password;
 
     private $p_pic;
+
+    private $utc_timestamp;
+    private $offset;
     
     
 
-    function __construct($first_name, $last_name, $city_name, $email, $phone, $username, $password, $p_pic){
+    function __construct($first_name, $last_name, $city_name, $email, $phone, $username, $password, $p_pic, $utc_timestamp, $offset){
         $this->first_name = $first_name;
         $this->last_name = $last_name;
         $this->city_name = $city_name;
@@ -29,6 +32,9 @@ Class User implements Crud, Authenticator{
         $this->password = $password;
 
         $this->p_pic = $p_pic;
+
+        $this->utc_timestamp = $utc_timestamp;
+        $this->offset = $offset;
 
     }
 
@@ -55,9 +61,24 @@ Class User implements Crud, Authenticator{
     public function getPassword(){
         return $this->password;
     }
+    public function setUtc_timestamp($utc_timestamp){
+        $this->utc_timestamp = $utc_timestamp;
+    }
+
+    public function getUtc_timestamp(){
+        return $this->utc_timestamp;
+    }
+    public function setOffset($offset){
+        $this->offset = $offset;
+    }
+
+    public function getOffset(){
+        return $this->offset;
+    }
 
     public static function create(){
-        $instance = new self();
+        $reflection = new ReflectionClass("User");
+        $instance = $reflection->newInstanceWithoutConstructor();
         return $instance;
     }
 
@@ -73,15 +94,18 @@ Class User implements Crud, Authenticator{
         $pass = $this->password;
         $pic = $this->p_pic;
 
+        $utc = $this->utc_timestamp;
+        $offset = $this->offset;
+
         $res = false;
 
         $DBConnector = new DBConnector;
         $DBConnection = $DBConnector->conn;
 
         try{
-            $stmt = $DBConnection->prepare("INSERT INTO `user`(`first_name`, `last_name`, `user_email`, `user_phone`, `user_city`, `username`, `password`, `profile_picture`) VALUES (?,?,?,?,?,?,?,?)");
+            $stmt = $DBConnection->prepare("INSERT INTO `user`(`first_name`, `last_name`, `user_email`, `user_phone`, `user_city`, `username`, `password`, `profile_picture`, `utc_timezone`, `offset`) VALUES (?,?,?,?,?,?,?,?,?,?)");
             
-            $stmt->bind_param('ssssssss' ,$fn,$ln,$uEmail,$uPhone,$city,$userName,$pass,$pic);
+            $stmt->bind_param('ssssssssss' ,$fn,$ln,$uEmail,$uPhone,$city,$userName,$pass,$pic,$utc,$offset);
             if($stmt->execute()){
                 $res = true;
             }

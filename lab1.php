@@ -13,8 +13,10 @@ if(isset($_POST['btn_save'])){
     $username = $_POST['username'];
     $password = $_POST['password'];
     $picName = $_FILES["profilePic"]["name"];
+    $utc_timestamp = $_POST['utc_timestamp'];
+    $offset = $_POST['time_zone_offset'];
 
-    $user = new User ($first_name, $last_name, $city, $email, $phone, $username, $password, $picName);
+    $user = new User ($first_name, $last_name, $city, $email, $phone, $username, $password, $picName, $utc_timestamp, $offset);
     $uploader = new FileUploader;
 
     if(!$user->validateForm()){
@@ -62,11 +64,14 @@ if(isset($_POST['btn_save'])){
   <title>ICS 3104: IAP - Lab</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <script type="text/javascript" src="validate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="js/validate.js"></script>
+  <script type="text/javascript" src="js/timezone.js"></script>
+  
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
 
 </head>                    
                     
@@ -140,6 +145,8 @@ if(isset($_POST['btn_save'])){
                                         <div class="form-group"><label class="small mb-1" for="inputPassword">Password</label><input class="form-control py-4" id="inputPassword" name="password" type="password" placeholder="Enter password"/></div>
                                     </div>
                                 </div>
+                                <input type="hidden" name="utc_timestamp" id="utc_timestamp" value=""/>
+                                <input type="hidden" name="time_zone_offset" id="time_zone_offset" value=""/>
                                 
                                 <div class="form-group mt-4 mb-0"><button class="btn btn-info btn-block my-4" type="submit" name = "btn_save" value = "btn_save" >Sign up</button></div>
                             </form>
@@ -158,7 +165,6 @@ if(isset($_POST['btn_save'])){
         </main>
 
         <script>
-
             function readURL(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2020 at 03:40 PM
+-- Generation Time: May 28, 2020 at 05:12 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -36,16 +36,18 @@ CREATE TABLE `user` (
   `user_city` varchar(32) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `profile_picture` varchar(255) NOT NULL
+  `profile_picture` varchar(255) NOT NULL,
+  `utc_timezone` varchar(255) NOT NULL,
+  `offset` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `user_email`, `user_phone`, `user_city`, `username`, `password`, `profile_picture`) VALUES
-(64, 'John', 'Doe', 'johndoe@anonymo.us', '0710000000', 'St. Denis', 'JohntheDoe', '$2y$10$1r.RljIZ559pvSHrpoRws.RnUObgoUTJG3n311z0o77HisKB9LCwa', 'default_profile.jpg'),
-(66, 'Jane', 'Doe', 'janedoe@anonymo.us', '0745454545', 'Birmingham', 'janetheDoe55', '$2y$10$Jy5slTW.k3vo4HnBXzysFuacpxChoCE3j..5EDNl0dICYM953xKae', 'user.png');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `user_email`, `user_phone`, `user_city`, `username`, `password`, `profile_picture`, `utc_timezone`, `offset`) VALUES
+(69, 'John', 'Doe', 'johndoe254@anonymo.us', '4458932456', 'Birmingham', 'John254', '$2y$10$7zXDhCSDBQ4vh431EUSebu7gIs7Ur3UDyh0xl1i8AHkBzghqK1Yx6', 'default_profile.jpg', '1590667288135', '-180'),
+(70, 'Jane', 'Doe', 'janedoe69@anonymo.us', '0856564545', 'Venice', 'janetheDoe55', '$2y$10$R6WpkQq0QmmaaLjckBtP8eDl2MYqMCJczB8OxmadwYnKbxZOALVKq', 'user.png', '1590667710618', '-180');
 
 --
 -- Indexes for dumped tables
@@ -65,7 +67,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
