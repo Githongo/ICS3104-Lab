@@ -13,10 +13,12 @@ Class User implements Crud, Authenticator{
 
     private $username;
     private $password;
+
+    private $p_pic;
     
     
 
-    function __construct($first_name, $last_name, $city_name, $email, $phone, $username, $password){
+    function __construct($first_name, $last_name, $city_name, $email, $phone, $username, $password, $p_pic){
         $this->first_name = $first_name;
         $this->last_name = $last_name;
         $this->city_name = $city_name;
@@ -25,6 +27,8 @@ Class User implements Crud, Authenticator{
 
         $this->username = $username;
         $this->password = $password;
+
+        $this->p_pic = $p_pic;
 
     }
 
@@ -67,13 +71,33 @@ Class User implements Crud, Authenticator{
         $userName = $this->username;
         $this->hashPassword();
         $pass = $this->password;
-        
-        
-        $sql = "INSERT INTO `user`(`first_name`, `last_name`, `user_email`, `user_phone`, `user_city`, `username`, `password`) VALUES ('$fn','$ln','$uEmail','$uPhone','$city','$userName','$pass')";
+        $pic = $this->p_pic;
+
+        $res = false;
 
         $DBConnector = new DBConnector;
-        $res = mysqli_query($DBConnector->conn, $sql);
+        $DBConnection = $DBConnector->conn;
+
+        try{
+            $stmt = $DBConnection->prepare("INSERT INTO `user`(`first_name`, `last_name`, `user_email`, `user_phone`, `user_city`, `username`, `password`, `profile_picture`) VALUES (?,?,?,?,?,?,?,?)");
+            
+            $stmt->bind_param('ssssssss' ,$fn,$ln,$uEmail,$uPhone,$city,$userName,$pass,$pic);
+            if($stmt->execute()){
+                $res = true;
+            }
+    
+            $stmt = null;
+            }
+            catch(Exception $e){
+                echo"An error occured";
+        }
+        
+        
+        //$sql = "INSERT INTO `user`(`first_name`, `last_name`, `user_email`, `user_phone`, `user_city`, `username`, `password`, `profile_picture`) VALUES ('$fn','$ln','$uEmail','$uPhone','$city','$userName','$pass', '$pic')";
+
+        
         return $res;
+
     }
 
     public static function readAll(){

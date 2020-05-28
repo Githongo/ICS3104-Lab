@@ -1,6 +1,7 @@
 <?php
 include_once "DBConnector.php";
 include_once "user.php";
+include 'fileUploader.php';
 
 
 if(isset($_POST['btn_save'])){
@@ -9,11 +10,13 @@ if(isset($_POST['btn_save'])){
     $city = $_POST['city_name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
-
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $picName = $_FILES["profilePic"]["name"];
 
-    $user = new User ($first_name, $last_name, $city, $email, $phone, $username, $password);
+    $user = new User ($first_name, $last_name, $city, $email, $phone, $username, $password, $picName);
+    $uploader = new FileUploader;
+
     if(!$user->validateForm()){
         $user->createFormErrorSessions();
         header("Refresh:0");
@@ -25,14 +28,27 @@ if(isset($_POST['btn_save'])){
         header("Refresh:0");
         die();
     }
-
-    $res = $user->save();
+    if($uploader->uploadFile()){
+        $res = $user->save();
+    }
+    else{ $res = false; 
+        session_start();
+        $_SESSION['form_errors'] = "Error in profile image upload please try again";
+        header("Refresh:0");
+        die();
+    }
 
     if($res){
-        echo "save operation was successful";
+        session_start();
+        $_SESSION['form_success'] = "Account data save operation successful!";
+        header("Refresh:0");
+        die();
     }
     else{
-        echo "An error occured";
+        session_start();
+        $_SESSION['form_errors'] = "Save operation failed!...Please try again";
+        //header("Refresh:0");
+        die();
     }
     
 }
@@ -50,11 +66,13 @@ if(isset($_POST['btn_save'])){
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 </head>                    
                     
                     
-    <body>              
+    <body> 
+    <main>             
                     
         <div class="container">
             <div class="row justify-content-center">
@@ -71,9 +89,29 @@ if(isset($_POST['btn_save'])){
                             unset($_SESSION['form_errors']);
 
                             }
+                        
+                            if(!empty($_SESSION['form_success'])){
+                                echo "<div class='alert alert-success' role='alert'>
+                                ".$_SESSION['form_success']."
+                            </div>";
+                            unset($_SESSION['form_success']);
+
+                            }
                         ?>
                        
-                            <form  method="post" name="user_details" onsubmit = "return(validateForm());" action="#readAllTable" >
+                            <form  method="post" name="user_details" enctype='multipart/form-data' onsubmit = "return(validateForm());" action="#readAllTable" >
+                                <div class="form-row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="imgInp">Upload Profile Image:</label>
+                                            <input type="file" name="profilePic" id="imgInp" class="form-control py-1" />
+                                        </div>
+                                    </div>
+                                        <div class="col-md-7">
+                                            <div class="form-group"><img id="preview" src="images/default_profile.png" alt="logo image" class="img-fluid img-thumbnail" style="height: 30%; width: 30%" /></div>
+                                        </div>
+                                </div>
+                                
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group"><label class="small mb-1" for="inputFirstName">First Name</label><input class="form-control py-4" id="inputFirstName" name="first_name" type="text" placeholder="Enter First name" /></div>
@@ -117,6 +155,26 @@ if(isset($_POST['btn_save'])){
             
             </div>
         </div>
+        </main>
+
+        <script>
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
+                    }
+                    
+                    reader.readAsDataURL(input.files[0]);
+                }
+                }
+
+                $("#imgInp").change(function() {
+                readURL(this);
+                });
+        </script>
 
         
 

@@ -10,8 +10,6 @@
         $instance->setPassword($password);
         $instance->setUsername($username);
 
-        echo "hello";
-
         if($instance->isPasswordCorrect()){
             $instance->login();
 
