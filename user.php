@@ -179,6 +179,7 @@ Class User implements Crud, Authenticator{
         while($row=mysqli_fetch_array($res)){
             if(password_verify($this->getPassword(), $row['password']) && $this->getUsername() == $row['username']){
                 $found = true;
+                $user_id = $row['id'];
             }
         }
         $DBCon->closeDatabase();
@@ -194,6 +195,7 @@ Class User implements Crud, Authenticator{
     public function logout(){
         session_start();
         unset($_SESSION['username']);
+        unset($_SESSION['user_id']);
         session_destroy();
         header("Location:login.php");
     }
@@ -201,6 +203,7 @@ Class User implements Crud, Authenticator{
     public function createUserSession(){
         session_start();
         $_SESSION['username'] = $this->getUsername();
+        $_SESSION['user_id'] = $this->getUserId();
     }
 
     public function isUserExist($userName){
