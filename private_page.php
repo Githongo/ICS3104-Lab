@@ -11,7 +11,6 @@
     function fetchUserAPIKey(){
         $id = $_SESSION['id'];
         $con = new DBConnector();
-        // $id = $_SESSION['id'];
         $sql = "SELECT api_key FROM api_keys WHERE user_id='$id'";
         $res = mysqli_query($con->conn,$sql) or die("Error " .mysqli_error($con->conn));    
       
@@ -19,11 +18,11 @@
             return 'Please Generate an API Key';
         }else{
             while($row = $res->fetch_array()){
-                $api_key = $row['api_key'];
+                $orderStatus = $row['order_status'];
             }
         }
         
-        return $api_key;
+        return $orderStatus;
     }
 ?>
 
