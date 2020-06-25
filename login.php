@@ -14,7 +14,6 @@
             $instance->login();
 
             $con->closeDatabase();
-
             $instance->createUserSession();
         }
         else{

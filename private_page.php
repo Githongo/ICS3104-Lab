@@ -3,26 +3,27 @@
     include_once 'DBConnector.php';
 
     session_start();
-    if(!isset($_SESSION['username'])){
+    if(!isset($_SESSION['user_id'])){
         header("Location:login.php");
     }
 
 
     function fetchUserAPIKey(){
-        $id = $_SESSION['id'];
+        $uid = $_SESSION['user_id'];
         $con = new DBConnector();
-        $sql = "SELECT api_key FROM api_keys WHERE user_id='$id'";
+        
+        $sql = "SELECT api_key FROM api_keys WHERE user_id = '$uid'";
         $res = mysqli_query($con->conn,$sql) or die("Error " .mysqli_error($con->conn));    
       
         if ($res->num_rows <= 0) {
             return 'Please Generate an API Key';
         }else{
             while($row = $res->fetch_array()){
-                $orderStatus = $row['order_status'];
+                $api_key = $row['api_key'];
             }
         }
         
-        return $orderStatus;
+        return $api_key;
     }
 ?>
 

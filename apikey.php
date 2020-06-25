@@ -36,11 +36,11 @@ include_once 'DBConnector.php';
     function saveApiKey($api_key){
         //Function that saves the API for the user currently logged in
         $con = new DBConnector();
-        $id = $_SESSION['id'];
-         $sql = "INSERT INTO api_keys(user_id,api_key) VALUES('$id','$api_key')";
-         $res = mysqli_query($con->conn,$sql) or die("Error " .mysqli_error($con->conn));    
+        $id = $_SESSION['user_id'];
+        $sql = "INSERT INTO  `api_keys`(`user_id`, `api_key`) VALUES('$id','$api_key')";
+        $res = mysqli_query($con->conn,$sql) or die("Error " .mysqli_error($con->conn));    
          
-         return $res;
+        return $res;
     }
       
     function generateResponse($api_key){
