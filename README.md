@@ -1,4 +1,4 @@
-# ICS 3104: Internet Application Programming -Lab
+# ICS 3104: Internet Application Programming -Lab 1-4
 This repository contains code in fulfilment of ICS 3104 Course Work.
 #### Setup
 *Clone/download the files from this repo and paste them in htdocs. 
